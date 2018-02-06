@@ -117,18 +117,72 @@
 		</div>
 		<div class="ex1">
 			<ul id="horizontal-list">
-			  <li class="active" id="home" style="position:relative;"><a href="index.html" style="text-decoration:none">Home</a></li>
+			  <li class="navigation" style="position:relative;"><a href="index.html" style="text-decoration:none">Home</a></li>
 			  <li class="navigation" style="position:relative;"><a href="research.html" style="text-decoration:none">Research</a></li>
 			  <li class="navigation" style="position:relative;"><a href="code.html" style="text-decoration:none">Code</a></li>
 			  <li class="navigation" style="position:relative;"><a href="interests.html" style="text-decoration:none">Interests</a></li>
-			  <li class="navigation" style="position:relative;"><a href="contact.html" style="text-decoration:none">Contact</a></li>
+			  <li class="active" id="home" style="position:relative;"><a href="contact.html" style="text-decoration:none">Contact</a></li>
 			</ul>
 		</div>
 		<div class="ex2">
-			<H2> I am researcher at Banco de Mexico (also known as BANXICO, that is the Central Bank of Mexico), where my principal activities consist in developing and implementing optimization models.  </H2>
-			<H2> I received my Ph.D. degree in 2014 from the Department of Mathematics at CINVESTAV under supervision of Carlos E. Valencia.  </H2>
-			<H2> Between 2011 and 2012, I visited the HP Labs at Palo Alto, CA to work with Burcu Aydin, Kemal Guler, Lyle Ramshaw, Pano Santos and Bob Tarjan. There, I developed algorithms to study tree-structure data, and supported the implementation of assignment algorithms for resource planning allocation. </H2>
+			<H4> Carlos Alejandro Alfaro Montúfar</H4>
+			<H4>Banco de México</H4>
+			<H4>alfaromontufar [at] gmail [dot] com</H4>
+			<H4>carlos [dot] alfaro [at] banxico [dot] org [dot] mx   </H4>
+			
+		<script src="processing.js"></script>
+		<script type="text/processing" data-processing-target="mycanvas">
+
+
+		// Global variables
+		float radius = 10.0;
+		int X, Y;
+		int nX, nY;
+		int delay = 16;
+
+		// Setup the Processing Canvas
+		void setup(){
+		  size( 1200, 200 );
+		  strokeWeight( 3 );
+		  frameRate( 15 );
+		  X = width / 2;
+		  Y = height / 2;
+		  nX = X;
+		  nY = Y;  
+		}
+
+		// Main draw loop
+		void draw(){
+		  
+		  radius = radius + sin( frameCount / 4 );
+		  
+		  // Track circle to new destination
+		  X+=(nX-X)/delay;
+		  Y+=(nY-Y)/delay;
+		  
+		  // Fill canvas grey
+		  background( 100 );
+		  
+		  // Set fill-color to blue
+		  fill(58, 81, 114);
+		  
+		  // Set stroke-color white
+		  stroke(255); 
+		  
+		  // Draw circle
+		  ellipse( X, Y, radius, radius );                  
+		}
+
+
+		// Set circle's next destination
+		void mouseMoved(){
+		  nX = mouseX;
+		  nY = mouseY;  
+		}
+
+
+		</script>
+		<canvas id="mycanvas"></canvas>
 		</div>
-		
 	</body>
 </html>

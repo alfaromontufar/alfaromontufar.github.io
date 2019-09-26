@@ -19,48 +19,12 @@
 				color: black;
 			}
 			
-			H2 { 
-				text-align: left; 
-				font-family: 'Quicksand', sans-serif;
-				color: black;
-			}
-			
-			H3 { 
-				text-align: left; 
-				font-family: 'Quicksand', sans-serif;
-				color: black;
-			}
-			
-			p { 
-				text-align: justify; 
-				font-family: 'Quicksand', sans-serif;
-				color: black;
-				font-size: 25px;
-			}
-			
-			p1 { 
-				text-align: center; 
-				font-family: 'Mansalva', cursive;
-				color: black;
-				font-size: 25px;
-			}
-			
-			#p2 { 
-				text-align: left; 
-				font-family: 'Quicksand', sans-serif;
-				color: black;
-				font-size: 18px;
-			}
-			
 			#header {
 				width: 100%;
 				height: 60px;
 			}
 			#lefthead {
 				width: 10%;
-				font-family: 'Rammetto One', cursive;
-				color: black;
-				font-size: 40px;
 			}
 			#centerhead {
 				width: 30%;
@@ -70,9 +34,7 @@
 				font-size: 50px;
 			}
 			#righthead {
-				font-family: 'Roboto Slab', serif;
-				color: black;
-				font-size: 30px;
+				
 			}
 			li.navigation {
 				font-family: 'Quicksand', sans-serif;	
@@ -85,6 +47,18 @@
 			div.ex2 {
 				width: 1600px;
 				margin: 50px;
+				text-align: justify; 
+				font-family: 'Quicksand', sans-serif;
+				color: black;
+				font-size: 25px;
+			}
+			div.ex3 {
+				width: 600px;
+				margin-left: 1000px;
+				text-align: right; 
+				font-family: 'Mansalva';
+				color: black;
+				font-size: 20px;
 			}
 			ul#horizontal-list  {
 				min-width: 70px;
@@ -144,31 +118,31 @@
 			  <li class="active" id="home" style="position:relative;"><a href="contact.html" style="text-decoration:none">Contact</a></li>
 			</ul>
 		</div>
+		<div class="ex3">	
+			<p> "Yesterday is history, tomorrow is mystery but today is a gift, that is why is called present"<br> Kung Fu Panda</p>
+		</div>
+		
 		<div class="ex2">
-			<p> Carlos Alejandro Alfaro Montúfar</p>
-			<p>Banco de México</p>
-			<p>alfaromontufar [at] gmail [dot] com</p>
-			<p>carlos [dot] alfaro [at] banxico [dot] org [dot] mx   </p>
 			
 		<script src="processing.js"></script>
 		<script type="text/processing" data-processing-target="mycanvas">
 
 
 		// Global variables
-		float radius = 10.0;
+		float radius = 100.0;
 		int X, Y;
 		int nX, nY;
-		int delay = 16;
+		int delay = 5;
 
 		// Setup the Processing Canvas
 		void setup(){
 		  size( 1200, 200 );
 		  strokeWeight( 3 );
 		  frameRate( 15 );
-		  X = width / 2;
-		  Y = height / 2;
+		  X = width / 4;
+		  Y = height / 4;
 		  nX = X;
-		  nY = Y;  
+		  nY = Y;
 		}
 
 		// Main draw loop
@@ -181,16 +155,24 @@
 		  Y+=(nY-Y)/delay;
 		  
 		  // Fill canvas grey
-		  background( 100 );
+		  background( 255 );
 		  
 		  // Set fill-color to blue
-		  fill(58, 81, 114);
+		  fill(0, 0, 0);
 		  
-		  // Set stroke-color white
-		  stroke(255); 
 		  
-		  // Draw circle
-		  ellipse( X, Y, radius, radius );                  
+		  
+			// Draw circle
+			ellipse( X, Y, radius, radius );
+			
+			fill(255, 255, 255);
+			textSize(32);
+			PFont sourceLight = createFont("Arial",16,true);
+			//sourceLight = createFont("SourceCodePro-Light.otf", 34);
+			textFont(sourceLight);
+			text("Carlos Alejandro Alfaro Montúfar", 50, 50); 
+			text("alfaromontufar [at] gmail [dot] com", 50, 100); 
+			text("carlos [dot] alfaro [at] banxico [dot] org [dot] mx ", 50, 150);
 		}
 
 

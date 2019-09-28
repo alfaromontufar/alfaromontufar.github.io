@@ -131,7 +131,7 @@
 
 
 		// Global variables
-		float radius = 100.0;
+		float radius = 200.0;
 		int X, Y;
 		int nX, nY;
 		int delay = 5;
@@ -150,7 +150,7 @@
 		// Main draw loop
 		void draw(){
 		  
-		  radius = radius + sin( frameCount / 4 );
+		  radius = radius + 2*sin( frameCount / 4 );
 		  
 		  // Track circle to new destination
 		  X+=(nX-X)/delay;
@@ -160,7 +160,7 @@
 		  background( 255 );
 		  
 		  // Set fill-color to blue
-		  fill(0, 0, 0);
+		  fill(100, 100, 100);
 		  
 		  
 		  

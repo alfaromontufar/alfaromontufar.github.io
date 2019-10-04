@@ -2,9 +2,9 @@
 let w = 101;
 
 let cells = [];
-let nextcells = [];
 let wstep;
 let hstep;
+var button;
 
 function setup() {
 	createCanvas(600, 600);
@@ -15,9 +15,6 @@ function setup() {
 		cells[i] = [];
 	}
 	init();
-	/*for (let i = 0; i < w; i++) {
-		nextcells[i] = [];
-	}*/
 }
 
 // reset board when mouse is pressed
@@ -48,6 +45,7 @@ function draw() {
 }
 
 function toppling() {
+	let toppled = false;
 	for (let i = 0; i < w; i++) {
 		for (let j = 0; j < w; j++) {
 			if (cells[i][j] > 3) {
@@ -64,12 +62,23 @@ function toppling() {
 				if ( j < w - 1 ){
 					cells[i][j+1] = cells[i][j+1] + 1;
 				}
+				toppled = true;
 				break;
 			}
 		}
+		if (toppled == true){
+			break;
+		}
+	}
+	if (toppled == false){
+		cells[floor(random(0,w))][floor(random(0,w))] = 100;
 	}
 }
 
+function saveSVG() {
+	save("mySVG.svg"); // give file name
+	print("saved svg");
+}
 
 
 

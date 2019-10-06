@@ -31,7 +31,7 @@ function init() {
 			cells[i][j] = 0;
 		}
 	}
-	cells[floor(w/2)][floor(w/2)] = 1000;
+	cells[floor(w/2)][floor(w/2)] = 10000;
 }
 
 function draw() {

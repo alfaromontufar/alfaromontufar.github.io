@@ -5,12 +5,13 @@ let cells = [];
 let wstep;
 let hstep;
 var button;
+let finished = false;
 
 function setup() {
 	createCanvas(600, 600);
 	wstep = int(width/w);
 	hstep =	int(height/w);
-	frameRate(10);
+	frameRate(10000);
 	for (let i = 0; i < w; i++) {
 		cells[i] = [];
 	}
@@ -27,10 +28,10 @@ function init() {
 	for (let i = 0; i < w; i++) {
 		cells[i] = [];
 		for (let j = 0; j < w; j++) {
-			cells[i][j] = int(random(0, 4));
+			cells[i][j] = 0;
 		}
 	}
-	cells[floor(random(0,w))][floor(random(0,w))] = 100;
+	cells[floor(w/2)][floor(w/2)] = 1000;
 }
 
 function draw() {
@@ -70,8 +71,9 @@ function toppling() {
 			break;
 		}
 	}
-	if (toppled == false){
-		cells[floor(random(0,w))][floor(random(0,w))] = 100;
+	if (toppled == false & finished == false){
+		saveSVG();
+		finished = true;
 	}
 }
 

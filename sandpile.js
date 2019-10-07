@@ -30,7 +30,7 @@ function init() {
 			cells[i][j] = int(random(0, 4));
 		}
 	}
-	cells[floor(random(0,w))][floor(random(0,w))] = 100;
+	//cells[floor(random(0,w))][floor(random(0,w))] = 100;
 }
 
 function draw() {
@@ -71,7 +71,9 @@ function toppling() {
 		}
 	}
 	if (toppled == false){
-		cells[floor(random(0,w))][floor(random(0,w))] = 100;
+		let i = floor(random(0,w));
+		let j = floor(random(0,w));
+		cells[i][j] = cells[i][j] + 1;
 	}
 }
 

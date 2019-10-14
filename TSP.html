@@ -63,6 +63,9 @@
   <body>
 	
 	<div id="floating-panel">
+		<b>Use: </b>
+		<select id="start">
+		</select>
 		<b>Latitude: </b>
 		<input type="ratio" id="latitudeinput" value="0.0" >
 		<b>Longitude: </b>
@@ -1181,6 +1184,29 @@
 
 		];
 		
+		var lista_de_ciudades_origen = document.getElementById("start");
+		
+		{
+			var option0 = document.createElement('option');
+			option0.innerHTML = "Zeros";
+			lista_de_ciudades_origen.appendChild(option0);
+			var option1 = document.createElement('option');
+			option1.innerHTML = "Mexico City";
+			lista_de_ciudades_origen.appendChild(option1);
+		}
+		
+		var onSelectStart = function(){
+			if( document.getElementById('start').value == "Mexico City"){
+				document.getElementById('latitudeinput').value = 19.419444;
+				document.getElementById('longitudeinput').value = -99.145556;
+			} else if( document.getElementById('start').value == "Zeros"){
+				document.getElementById('latitudeinput').value = 0;
+				document.getElementById('longitudeinput').value = 0;
+			}
+		}
+		
+		document.getElementById('start').addEventListener('change', onSelectStart);
+		
 		var list_allowed = [];
 		
 		var flightPlanCoordinates = [];
@@ -1191,22 +1217,20 @@
     
     var time_constraint = 504.0; // Number of hours to spend in the travel (3 weeks)
 		
-    function toRadians(degrees)
-    {
-      var pi = Math.PI;
-      return degrees * (pi/180);
+    function toRadians(degrees){
+      return degrees * (Math.PI/180);
     }
     
-		function haversine(point1,point2) {
-			var dLat = toRadians(point2[0] - point1[0]);
-			var dLon = toRadians(point2[1] - point1[1]);
-			var lat1 = toRadians(point1[0]);
-			var lat2 = toRadians(point2[0]);
-	 
-			var a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
-			var c = 2 * Math.asin(Math.sqrt(a));
-			return R * c;
-		}
+	function haversine(point1,point2) {
+		var dLat = toRadians(point2[0] - point1[0]);
+		var dLon = toRadians(point2[1] - point1[1]);
+		var lat1 = toRadians(point1[0]);
+		var lat2 = toRadians(point2[0]);
+ 
+		var a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
+		var c = 2 * Math.asin(Math.sqrt(a));
+		return R * c;
+	}
     
     var distance_matrix = [];
     for (var i = 0; i < datos.length; i++){
@@ -1215,11 +1239,12 @@
         point1 = [datos[i].latitud,datos[i].longitud];
         point2 = [datos[j].latitud,datos[j].longitud];
         distance_matrix[i][j] = haversine(point1,point2);
+		distance_matrix[j][i] = distance_matrix[i][j];
       }
     }
     
     function dist_to_time(dist){
-      return dist / 80.0;
+		return dist / 80.0;
     }
     
     function find_itinerary_greedy_approach(origin){
@@ -1264,13 +1289,13 @@
 
         } else { 
 
-                  var last = visited_sites[visited_sites.length - 1]; // last visited site index 
+          var last = visited_sites[visited_sites.length - 1]; // last visited site index 
 
-                  // initial value of closest cannot be equal to last neither to anohter visited site, otherwise distance is 0
+          // initial value of closest cannot be equal to last neither to anohter visited site, otherwise distance is 0
           if( closest == last )
-                      for(var i = 0; i < datos.length; i++)
-                        for(var j = 0; j < datos.length; j++)
-                            if( i != visited_sites[j]){
+			for(var i = 0; i < datos.length; i++)
+              for(var j = 0; j < datos.length; j++)
+                if( i != visited_sites[j]){
                   closest = i;
                   i = datos.length;
                   break;
@@ -1332,7 +1357,6 @@
 			var time_constraint = 504.0; // Number of hours to spend in the travel (3 weeks)
 			var latitudevar = parseFloat(document.getElementById('latitudeinput').value);
 			var longitudevar = parseFloat(document.getElementById('longitudeinput').value);
-			console.log(typeof latitudevar + "," + typeof longitudevar);
 			
 			origin_coords = [latitudevar,longitudevar];
 			

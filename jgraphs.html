@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Anton|Big+Shoulders+Display|Heebo|Mansalva|Montserrat|Notable|Open+Sans+Condensed:300|Quicksand|Roboto&display=swap" rel="stylesheet">
+
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+<script>sagecell.makeSagecell({"inputLocation": ".sage"});</script>
+<link rel="stylesheet" type="text/css" href="https://sagecell.sagemath.org/static/sagecell_embed.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+<html>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		
+		<title>
+			Carlos A. Alfaro - home
+		</title>
+		
+		<STYLE type="text/css">
+			
+			body {
+				background-color: rgb(255,255,255);
+			}
+			
+			H1 {
+				text-align: center;
+				font-family: 'Quicksand', sans-serif;
+				color: black;
+			}
+			
+			#header {
+				width: 100%;
+				height: 60px;
+			}
+			#lefthead {
+				width: 10%;
+			}
+			#centerhead {
+				width: 40%;
+				text-align: center;
+				font-family: 'Montserrat', sans-serif;
+				color: black;
+				font-size: 50px;
+			}
+			#righthead {
+				width: 50%;
+			}
+			li.navigation {
+				font-family: 'Quicksand', sans-serif;	
+				font-size: 30px;
+			}
+			div.ex1 {
+				
+				margin: 50px;
+			}
+			div.ex2 {
+				
+				margin: 50px;
+				text-align: justify; 
+				font-family: 'Quicksand', sans-serif;
+				color: black;
+				font-size: 15px;
+			}
+			div.ex3 {
+				margin: 100px 100px 100px 100px;
+				text-align: right; 
+				font-family: 'Mansalva';
+				color: black;
+				font-size: 15px;
+			}
+			ul#horizontal-list  {
+				min-width: 70px;
+				list: none;
+				color: black;
+				align: center;
+				position: center;
+				font-size: 30px;
+			}
+			ul#horizontal-list li {
+				display: inline;
+				margin: auto;
+			}
+			
+			#home.active, #contract.active{
+				font-family: 'Quicksand', sans-serif;
+				font-size: 30px;
+				background-color : white;
+				padding: 5px;
+				-webkit-appearance: button;
+				-moz-appearance: button;
+				appearance: button;
+			}
+			
+			a { 
+				color: inherit; 
+			} 
+		</STYLE>
+	</head>
+
+	<body>
+		<div class="ex1">
+			<table id="header">
+				<tbody>
+					<tr>
+						<td id="lefthead" width="100%">
+							<img src="Carlos.jpg" >
+						</td>
+						
+						<td id="centerhead">
+							Carlos A. Alfaro 
+						</td>
+						
+						<td id="righthead">
+							<img src="banxico.jpg" width="100%">
+						</td>
+					<tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="ex1">
+			<ul id="horizontal-list">
+			  <li class="navigation" style="position:relative;"><a href="index.html" style="text-decoration:none">Home</a></li>
+			  <li class="navigation" style="position:relative;"><a href="research.html" style="text-decoration:none">Research</a></li>
+			  <li class="active" id="home" style="position:relative;"><a href="code.html" style="text-decoration:none">Code</a></li>
+			  <li class="navigation" style="position:relative;"><a href="interests.html" style="text-decoration:none">Interests</a></li>
+			  <li class="navigation" style="position:relative;"><a href="contact.html" style="text-decoration:none">Contact</a></li>
+			</ul>
+		</div>
+		
+		<div class="ex2">
+			<H2> JGraphs </H2>
+			<p> This version of JGraphs is implemented in javascript, to graphically manipulate graphs. It can be used to generate code for other software, like SageMath, LaTeX, etc. In the past, I have used it to compute the critical ideals and critical groups of graphs, as well as, create Tikz code for LaTeX. Since it was coded in javascript, it works on different browsers.<br>
+
+			Basic command for the TextBox:<br>
+
+			Kn - Creates a complete graph with n vertices<br>
+
+			Pn - Creates a path with n vertices<br>
+
+			Tn - Creates a graph with no edges and n vertices<br>
+
+			It also can read the adjacency matrix of a graph<br>
+
+			Examples:<br>
+
+			Try K10 followed by ENTER.<br>
+
+			Try {{0,1},{0,0}} to produce an arrow; it also works P2.</p>
+			
+			<iframe id="JGraphsFrame" src="jg.html" width="500" height="500" ></iframe>
+		</div>	
+		
+		<div class="ex2">
+			<p> Below you can find a SageMathCell to execute code.<br>
+		</div>
+			
+		<div class="sage">
+			<script type="text/x-sage">1+2</script>
+		</div>
+
+	</body>
+</html>

@@ -1,86 +1,133 @@
-
-let w = 101;
-
-let cells = [];
-let wstep;
-let hstep;
-var button;
+let systems;
 
 function setup() {
-	createCanvas(600, 600);
-	wstep = int(width/w);
-	hstep =	int(height/w);
-	frameRate(10);
-	for (let i = 0; i < w; i++) {
-		cells[i] = [];
-	}
-	init();
-}
-
-// reset board when mouse is pressed
-function mousePressed() {
-	init();
-}
-
-// Fill board randomly
-function init() {
-	for (let i = 0; i < w; i++) {
-		cells[i] = [];
-		for (let j = 0; j < w; j++) {
-			cells[i][j] = int(random(0, 4));
-		}
-	}
-	//cells[floor(random(0,w))][floor(random(0,w))] = 100;
+  createCanvas(600, 600);
+  systems = [];
 }
 
 function draw() {
-	toppling();
-	for (let i = 0; i < w; i++) {
-		for (let j = 0; j < w; j++) {
-			fill( int( cells[i][j] * 255 / 4 ) );
-			noStroke();
-			rect(i * wstep, j * hstep, wstep, hstep);
-		}
-	}
+  background(51);
+  background(0);
+  for (i = 0; i < systems.length; i++) {
+    systems[i].run();
+    systems[i].addParticle();
+  }
+  if (systems.length == 0) {
+    fill(255);
+    textAlign(CENTER);
+    textSize(32);
+    text("click mouse to add particle systems", width / 2, height / 2);
+  }
 }
 
-function toppling() {
-	let toppled = false;
-	for (let i = 0; i < w; i++) {
-		for (let j = 0; j < w; j++) {
-			if (cells[i][j] > 3) {
-				cells[i][j] = cells[i][j] - 4;
-				if ( i > 0 ){
-					cells[i-1][j] = cells[i-1][j] + 1;
-				}
-				if ( j > 0 ){
-					cells[i][j-1] = cells[i][j-1] + 1;
-				}
-				if ( i < w - 1 ){
-					cells[i+1][j] = cells[i+1][j] + 1;
-				}
-				if ( j < w - 1 ){
-					cells[i][j+1] = cells[i][j+1] + 1;
-				}
-				toppled = true;
-				break;
-			}
-		}
-		if (toppled == true){
-			break;
-		}
-	}
-	if (toppled == false){
-		let i = floor(random(0,w));
-		let j = floor(random(0,w));
-		cells[i][j] = cells[i][j] + 1;
-	}
+function mousePressed() {
+  this.p = new ParticleSystem(createVector(mouseX, mouseY));
+  systems.push(p);
 }
 
-function saveSVG() {
-	save("mySVG.svg"); // give file name
-	print("saved svg");
+// A simple Particle class
+let Particle = function(position) {
+  this.acceleration = createVector(0, 0.05);
+  this.velocity = createVector(random(-1, 1), random(-1, 0));
+  this.position = position.copy();
+  this.lifespan = 255.0;
+};
+
+Particle.prototype.run = function() {
+  this.update();
+  this.display();
+};
+
+// Method to update position
+Particle.prototype.update = function(){
+  this.velocity.add(this.acceleration);
+  this.position.add(this.velocity);
+  this.lifespan -= 2;
+};
+
+// Method to display
+Particle.prototype.display = function () {
+  stroke(200, this.lifespan);
+  strokeWeight(2);
+  fill(127, this.lifespan);
+  ellipse(this.position.x, this.position.y, 12, 12);
+};
+
+// Is the particle still useful?
+Particle.prototype.isDead = function () {
+  if (this.lifespan < 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+let ParticleSystem = function (position) {
+  this.origin = position.copy();
+  this.particles = [];
+};
+
+ParticleSystem.prototype.addParticle = function () {
+  // Add either a Particle or CrazyParticle to the system
+  if (int(random(0, 2)) == 0) {
+    p = new Particle(this.origin);
+  }
+  else {
+    p = new CrazyParticle(this.origin);
+  }
+  this.particles.push(p);
+};
+
+ParticleSystem.prototype.run = function () {
+  for (let i = this.particles.length - 1; i >= 0; i--) {
+    let p = this.particles[i];
+    p.run();
+    if (p.isDead()) {
+      this.particles.splice(i, 1);
+    }
+  }
+};
+
+// A subclass of Particle
+
+function CrazyParticle(origin) {
+  // Call the parent constructor, making sure (using Function#call)
+  // that "this" is set correctly during the call
+  Particle.call(this, origin);
+
+  // Initialize our added properties
+  this.theta = 0.0;
+};
+
+// Create a Crazy.prototype object that inherits from Particle.prototype.
+// Note: A common error here is to use "new Particle()" to create the
+// Crazy.prototype. That's incorrect for several reasons, not least
+// that we don't have anything to give Particle for the "origin"
+// argument. The correct place to call Particle is above, where we call
+// it from Crazy.
+CrazyParticle.prototype = Object.create(Particle.prototype); // See note below
+
+// Set the "constructor" property to refer to CrazyParticle
+CrazyParticle.prototype.constructor = CrazyParticle;
+
+// Notice we don't have the method run() here; it is inherited from Particle
+
+// This update() method overrides the parent class update() method
+CrazyParticle.prototype.update=function() {
+  Particle.prototype.update.call(this);
+  // Increment rotation based on horizontal velocity
+  this.theta += (this.velocity.x * this.velocity.mag()) / 10.0;
 }
 
-
-
+// This display() method overrides the parent class display() method
+CrazyParticle.prototype.display=function() {
+  // Render the ellipse just like in a regular particle
+  Particle.prototype.display.call(this);
+  // Then add a rotating line
+  push();
+  translate(this.position.x, this.position.y);
+  rotate(this.theta);
+  stroke(255, this.lifespan);
+  line(0, 0, 25, 0);
+  pop();
+}

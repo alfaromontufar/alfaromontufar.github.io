@@ -4,6 +4,7 @@
 	<title>Travel challenge</title>
 	<meta name="viewport" content="initial-scale=1.0">
 	<meta charset="utf-8">
+	<script src="/tsp/dist/glpk.min.js"></script>
 	<style>
 	  /* Always set the map height explicitly to define the size of the div
 	   * element that contains the map. */
@@ -1213,126 +1214,126 @@
 
 		var origin_coords = [0.0,0.0];
     
-    var R = 6372.8; // Earth radious in kilometers
+    	var R = 6372.8; // Earth radious in kilometers
     
-    var time_constraint = 504.0; // Number of hours to spend in the travel (3 weeks)
+    	var time_constraint = 504.0; // Number of hours to spend in the travel (3 weeks)
 		
-    function toRadians(degrees){
-      return degrees * (Math.PI/180);
-    }
-    
-	function haversine(point1,point2) {
-		var dLat = toRadians(point2[0] - point1[0]);
-		var dLon = toRadians(point2[1] - point1[1]);
-		var lat1 = toRadians(point1[0]);
-		var lat2 = toRadians(point2[0]);
- 
-		var a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
-		var c = 2 * Math.asin(Math.sqrt(a));
-		return R * c;
-	}
-    
-    var distance_matrix = [];
-    for (var i = 0; i < datos.length; i++){
-      distance_matrix[i] = [];
-      for (var j = 0; j <= i; j++){
-        point1 = [datos[i].latitud,datos[i].longitud];
-        point2 = [datos[j].latitud,datos[j].longitud];
-        distance_matrix[i][j] = haversine(point1,point2);
-		distance_matrix[j][i] = distance_matrix[i][j];
-      }
-    }
-    
-    function dist_to_time(dist){
-		return dist / 80.0;
-    }
-    
-    function find_itinerary_greedy_approach(origin){
+		function toRadians(degrees){
+			return degrees * (Math.PI/180);
+		}
 		
-      // First we compute the distances from the origin to all sites
-      var distance_to_origin = [];
+		function haversine(point1,point2) {
+			var dLat = toRadians(point2[0] - point1[0]);
+			var dLon = toRadians(point2[1] - point1[1]);
+			var lat1 = toRadians(point1[0]);
+			var lat2 = toRadians(point2[0]);
+	
+			var a = Math.pow(Math.sin(dLat / 2),2) + Math.pow(Math.sin(dLon / 2),2) * Math.cos(lat1) * Math.cos(lat2);
+			var c = 2 * Math.asin(Math.sqrt(a));
+			return R * c;
+		}
+		
+		var distance_matrix = [];
+		for (var i = 0; i < datos.length; i++){
+			distance_matrix[i] = [];
+			for (var j = 0; j <= i; j++){
+				point1 = [datos[i].latitud,datos[i].longitud];
+				point2 = [datos[j].latitud,datos[j].longitud];
+				distance_matrix[i][j] = haversine(point1,point2);
+				distance_matrix[j][i] = distance_matrix[i][j];
+			}
+		}
+		
+		function dist_to_time(dist){
+			return dist / 80.0;
+		}
+    
+		function find_itinerary_greedy_approach(origin){
+			
+			// First we compute the distances from the origin to all sites
+			var distance_to_origin = [];
 
-      for( var i = 0; i < datos.length; i++ ){
-        distance_to_origin[i] = haversine( origin, [datos[i].latitud,datos[i].longitud] );
-      }
+			for( var i = 0; i < datos.length; i++ ){
+				distance_to_origin[i] = haversine( origin, [datos[i].latitud,datos[i].longitud] );
+			}
 
-      //
-      // Greedy approach
-      //
+			//
+			// Greedy approach
+			//
 
-      // accumulated_distance stores the accumulated distance in hrs.
-      var accumulated_time = 0.0;
-      var completed = false;
-      var visited_sites = [];
+			// accumulated_distance stores the accumulated distance in hrs.
+			var accumulated_time = 0.0;
+			var completed = false;
+			var visited_sites = [];
 
-      // This loop is going to go until it is not possible to travel to other place without breaking the time constraint of the 3 weeks
-      while( completed == false ){
+			// This loop is going to go until it is not possible to travel to other place without breaking the time constraint of the 3 weeks
+			while( completed == false ){
 
-        var closest = 0;
+				var closest = 0;
 
-        // First case
-        if( visited_sites.length == 0 ){
+				// First case
+				if( visited_sites.length == 0 ){
 
-                  // looking for the closest site to the origin
-          for(var i = 1; i < datos.length; i++)
-            if( distance_to_origin[closest] > distance_to_origin[i] )
-              closest = i;
+						// looking for the closest site to the origin
+					for(var i = 1; i < datos.length; i++)
+						if( distance_to_origin[closest] > distance_to_origin[i] )
+						closest = i;
 
-          // checking if the travel can be done
-          if( 2*dist_to_time(distance_to_origin[closest]) + 6  <= time_constraint ){
-            visited_sites.push(closest);
-            accumulated_time = accumulated_time +  dist_to_time(distance_to_origin[closest]) + 6.0;
-          } else {
-            console.log("There is no solution ");
-            completed = true;
-          }
+					// checking if the travel can be done
+					if( 2*dist_to_time(distance_to_origin[closest]) + 6  <= time_constraint ){
+						visited_sites.push(closest);
+						accumulated_time = accumulated_time +  dist_to_time(distance_to_origin[closest]) + 6.0;
+					} else {
+						console.log("There is no solution ");
+						completed = true;
+					}
 
-        } else { 
+				} else { 
 
-          var last = visited_sites[visited_sites.length - 1]; // last visited site index 
+					var last = visited_sites[visited_sites.length - 1]; // last visited site index 
 
-          // initial value of closest cannot be equal to last neither to anohter visited site, otherwise distance is 0
-          if( closest == last )
-			for(var i = 0; i < datos.length; i++)
-              for(var j = 0; j < datos.length; j++)
-                if( i != visited_sites[j]){
-                  closest = i;
-                  i = datos.length;
-                  break;
-                }
+					// initial value of closest cannot be equal to last neither to anohter visited site, otherwise distance is 0
+					if( closest == last )
+						for(var i = 0; i < datos.length; i++)
+							for(var j = 0; j < datos.length; j++)
+								if( i != visited_sites[j]){
+								closest = i;
+								i = datos.length;
+								break;
+							}
 
-                  // looking for the closest site, ommiting places we have visited
-                  for(var i = 0; i < datos.length; i++){
+					// looking for the closest site, ommiting places we have visited
+					for(var i = 0; i < datos.length; i++){
 
-                      var ommit = false;
+						var ommit = false;
 
-                      for(var j = 0; j < visited_sites.length; j++)
-                          if( i == visited_sites[j]){
-                              ommit = true;
-                              break;
-                          }
+						for(var j = 0; j < visited_sites.length; j++)
+							if( i == visited_sites[j]){
+								ommit = true;
+								break;
+							}
 
-                      if( ommit == false )
-                          if( last != i && distance_matrix[last][closest] > distance_matrix[last][i] )
-                              closest = i;
-                  }
+						if( ommit == false )
+							if( last != i && distance_matrix[last][closest] > distance_matrix[last][i] )
+								closest = i;
+					}
 
-                  // checking if the travel can be done, if so, we add closest site to our travel, otherwise we have to return to the origin
-                  if( accumulated_time + dist_to_time(distance_matrix[last][closest]) + 6 + dist_to_time(distance_to_origin[closest]) <= time_constraint ){
-                      visited_sites.push(closest);
-                      accumulated_time += dist_to_time(distance_matrix[last][closest]) + 6;
-                  } else {
-                      accumulated_time += dist_to_time(distance_to_origin[last]);
-                      completed = true;
-                  }
+					// checking if the travel can be done, if so, we add closest site to our travel, otherwise we have to return to the origin
+					if( accumulated_time + dist_to_time(distance_matrix[last][closest]) + 6 + dist_to_time(distance_to_origin[closest]) <= time_constraint ){
+						visited_sites.push(closest);
+						accumulated_time += dist_to_time(distance_matrix[last][closest]) + 6;
+					} else {
+						accumulated_time += dist_to_time(distance_to_origin[last]);
+						completed = true;
+					}
 
-        }
+				}
 
-      }
+			}
 
-      return visited_sites;
+			return visited_sites;
 
-    }
+		}
     
 		// Definicion de colores
 		var ColorC = "rgb(0,0,255)"; //blue

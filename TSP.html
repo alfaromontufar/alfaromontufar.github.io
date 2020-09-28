@@ -1334,6 +1334,64 @@
 			return visited_sites;
 
 		}
+
+		function collision(initial_list){
+
+			for( var i = 0; i < initial_list.length - 1; i ++){
+				for( var j = i + 2; j < initial_list.length - 1; j ++){
+					if( distance_matrix[initial_list[i]][initial_list[i+1]] + distance_matrix[initial_list[j]][initial_list[j+1]] > distance_matrix[initial_list[i]][initial_list[j]] + distance_matrix[initial_list[i+1]][initial_list[j+1]] ){
+						return [i,j];
+					}
+				}
+			}
+
+			for( var j = 0; j < initial_list.length - 1; j ++){
+				if( distance_matrix[initial_list[initial_list.length-1]][initial_list[0]] + distance_matrix[initial_list[j]][initial_list[j+1]] > distance_matrix[initial_list[initial_list.length-1]][initial_list[j]] + distance_matrix[initial_list[0]][initial_list[j+1]] ){
+					return [initial_list.length-1,j];
+				}
+			}
+
+			return [-1,-1];
+			
+		}
+
+		function permutar(initial_list,parnodes){
+
+			minimo = parnodes[0];
+			maximo = parnodes[1];
+
+			if(minimo > maximo){
+				minimo = parnodes[1];
+				maximo = parnodes[0];
+			}
+
+			temp_array1 = initial_list.slice(0,minimo+1);
+			temp_array2 = initial_list.slice(minimo+1,maximo+1).reverse();
+			temp_array3 = initial_list.slice(maximo+1,initial_list.length);
+
+			return temp_array1.concat(temp_array2).concat(temp_array3);
+		}
+
+		function two_opt(initial_list){
+
+			var bandera = true;
+			var new_list = initial_list;
+
+			while(bandera){
+				console.log(new_list);
+				var parnodes = collision(new_list);
+				console.log(parnodes);
+				if( parnodes[0] != -1 ){
+					new_list = permutar(new_list,parnodes);
+					console.log(new_list);
+				}else{
+					bandera = false;
+				}
+			}
+
+			return new_list;
+
+		}
     
 		// Definicion de colores
 		var ColorC = "rgb(0,0,255)"; //blue
@@ -1363,6 +1421,8 @@
 			
 			list_allowed = find_itinerary_greedy_approach(origin_coords);
 			
+			list_allowed = two_opt(list_allowed);
+
 			for( var i = 0; i < list_allowed.length; i++ ){
 				flightPlanCoordinates.push( {lat: datos[list_allowed[i]].latitud, lng: datos[list_allowed[i]].longitud} );
 			}

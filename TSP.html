@@ -1413,6 +1413,15 @@
 			
 		// Compute route button
 		var computeButton = function(){
+			
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: 24, lng: -102},
+				zoom: 6,
+				zoomControl: false,
+				fullscreenControl: false,
+				mapTypeControl: false
+			});
+
 			var time_constraint = 504.0; // Number of hours to spend in the travel (3 weeks)
 			var latitudevar = parseFloat(document.getElementById('latitudeinput').value);
 			var longitudevar = parseFloat(document.getElementById('longitudeinput').value);
@@ -1423,16 +1432,21 @@
 			
 			list_allowed = two_opt(list_allowed);
 
+			flightPlanCoordinates = [];
+
 			for( var i = 0; i < list_allowed.length; i++ ){
 				flightPlanCoordinates.push( {lat: datos[list_allowed[i]].latitud, lng: datos[list_allowed[i]].longitud} );
 			}
+
 			flightPlanCoordinatesOrigin = [];
 			
 			flightPlanCoordinatesOrigin.push( {lat: datos[list_allowed[0]].latitud, lng: datos[list_allowed[0]].longitud} );
 			flightPlanCoordinatesOrigin.push( { lat:origin_coords[0], lng:origin_coords[1] } );
 			flightPlanCoordinatesOrigin.push( {lat: datos[list_allowed[list_allowed.length - 1]].latitud, lng: datos[list_allowed[list_allowed.length - 1]].longitud} );	
 		
-			datos = datos.filter(
+			datos1 = datos.slice();
+			
+			datos1 = datos1.filter(
 				function(d,i){
 
 					var flag = true;
@@ -1448,7 +1462,8 @@
 			);
 			
 			var bounds = new google.maps.LatLngBounds();
-			datos.forEach(
+
+			datos1.forEach(
 				function(d,l){
 					
 					var text = "";

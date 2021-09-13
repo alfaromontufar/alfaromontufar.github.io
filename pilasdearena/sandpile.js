@@ -49,31 +49,31 @@ function toppling() {
 				rect(i * wstep, j * hstep, wstep, hstep);
 				if ( i > 0 ){
 					cells[i-1][j] = cells[i-1][j] + 1;
-					//fill( int( cells[i-1][j] * 255 / 4 ) );
+					fill( int( cells[i-1][j] * 255 / 4 ) );
 					//stroke('red');
 					//strokeWeight(10);
-					//rect((i-1) * wstep, j * hstep, wstep, hstep);
+					rect((i-1) * wstep, j * hstep, wstep, hstep);
 				}
 				if ( j > 0 ){
 					cells[i][j-1] = cells[i][j-1] + 1;
-					//fill( int( cells[i][j-1] * 255 / 4 ) );
+					fill( int( cells[i][j-1] * 255 / 4 ) );
 					//stroke('red');
 					//strokeWeight(10);
-					//rect(i * wstep, (j-1) * hstep, wstep, hstep);
+					rect(i * wstep, (j-1) * hstep, wstep, hstep);
 				}
 				if ( i < w - 1 ){
 					cells[i+1][j] = cells[i+1][j] + 1;
-					//fill( int( cells[i+1][j] * 255 / 4 ) );
+					fill( int( cells[i+1][j] * 255 / 4 ) );
 					//stroke('red');
 					//strokeWeight(10);
-					//rect((i+1) * wstep, j * hstep, wstep, hstep);
+					rect((i+1) * wstep, j * hstep, wstep, hstep);
 				}
 				if ( j < w - 1 ){
 					cells[i][j+1] = cells[i][j+1] + 1;
-					//fill( int( cells[i][j+1] * 255 / 4 ) );
+					fill( int( cells[i][j+1] * 255 / 4 ) );
 					//stroke('red');
 					//strokeWeight(10);
-					//rect(i * wstep, (j+1) * hstep, wstep, hstep);
+					rect(i * wstep, (j+1) * hstep, wstep, hstep);
 				}
 				toppled = true;
 				break;
@@ -84,14 +84,20 @@ function toppling() {
 		}
 	}
 	if (toppled == false){
-		let i = floor(random(0,w));
-		let j = floor(random(0,w));
-		cells[i][j] = cells[i][j] + 1;
+		let i1 = floor(random(0,w));
+		let j1 = floor(random(0,w));
+		cells[i1][j1] = cells[i1][j1] + 1;
+
+		fill( int( cells[i1][j1] * 255 / 4 ) );
 
 		for (let i = 0; i < w; i++) {
 			for (let j = 0; j < w; j++) {
 				fill( int( cells[i][j] * 255 / 4 ) );
 				noStroke();
+				if(i == i1 && j == j1){
+					stroke('blue');
+					strokeWeight(10);
+				}
 				rect(i * wstep, j * hstep, wstep, hstep);
 			}
 		}

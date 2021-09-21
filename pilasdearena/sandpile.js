@@ -5,6 +5,7 @@ let cells = [];
 let wstep;
 let hstep;
 var button;
+var colorusado = 'black';
 
 function setup() {
 	createCanvas(600, 600);
@@ -20,6 +21,7 @@ function setup() {
 // reset board when mouse is pressed
 function mousePressed() {
 	init();
+	colorusado = 'blue'
 }
 
 // Fill board randomly
@@ -95,7 +97,7 @@ function toppling() {
 				fill( int( cells[i][j] * 255 / 4 ) );
 				noStroke();
 				if(i == i1 && j == j1){
-					stroke('blue');
+					stroke(colorusado);
 					strokeWeight(10);
 				}
 				rect(i * wstep, j * hstep, wstep, hstep);

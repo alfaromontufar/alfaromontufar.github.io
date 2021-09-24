@@ -52,29 +52,33 @@ function toppling() {
 				if ( i > 0 ){
 					cells[i-1][j] = cells[i-1][j] + 1;
 					fill( int( cells[i-1][j] * 255 / 4 ) );
+					//noStroke();
 					//stroke('red');
-					//strokeWeight(10);
+					//strokeWeight(0);
 					rect((i-1) * wstep, j * hstep, wstep, hstep);
 				}
 				if ( j > 0 ){
 					cells[i][j-1] = cells[i][j-1] + 1;
 					fill( int( cells[i][j-1] * 255 / 4 ) );
+					//noStroke();
 					//stroke('red');
-					//strokeWeight(10);
+					//strokeWeight(0);
 					rect(i * wstep, (j-1) * hstep, wstep, hstep);
 				}
 				if ( i < w - 1 ){
 					cells[i+1][j] = cells[i+1][j] + 1;
 					fill( int( cells[i+1][j] * 255 / 4 ) );
+					//noStroke();
 					//stroke('red');
-					//strokeWeight(10);
+					//strokeWeight(0);
 					rect((i+1) * wstep, j * hstep, wstep, hstep);
 				}
 				if ( j < w - 1 ){
 					cells[i][j+1] = cells[i][j+1] + 1;
 					fill( int( cells[i][j+1] * 255 / 4 ) );
+					//noStroke();
 					//stroke('red');
-					//strokeWeight(10);
+					//strokeWeight(0);
 					rect(i * wstep, (j+1) * hstep, wstep, hstep);
 				}
 				toppled = true;

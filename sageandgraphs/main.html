@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Anton|Big+Shoulders+Display|Heebo|Mansalva|Montserrat|Notable|Open+Sans+Condensed:300|Quicksand|Roboto&display=swap" rel="stylesheet">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+<script>sagecell.makeSagecell({"inputLocation": ".sage"});</script>
+<html>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		
+		<title>
+			JGraphs
+		</title>
+		
+		<STYLE type="text/css">
+			
+			body {
+				background-color: rgb(255, 255, 255);
+			}
+			
+			H1 {
+				text-align: center;
+				font-family: 'Quicksand', sans-serif;
+				color: black;
+			}
+			
+			#header {
+				width: 100%;
+				height: 60px;
+			}
+			#lefthead {
+				width: 10%;
+			}
+			#centerhead {
+				width: 40%;
+				text-align: center;
+				font-family: 'Montserrat', sans-serif;
+				color: black;
+				font-size: 50px;
+			}
+			#righthead {
+				width: 50%;
+			}
+			li.navigation {
+				font-family: 'Quicksand', sans-serif;	
+				font-size: 30px;
+			}
+			div.ex1 {
+				
+				margin: 50px;
+			}
+			div.ex2 {
+				
+				margin: 30px;
+				text-align: justify; 
+				font-family: 'Quicksand', sans-serif;
+				color: black;
+				font-size: 15px;
+			}
+			div.ex3 {
+				margin: 100px 100px 100px 100px;
+				text-align: right; 
+				font-family: 'Mansalva';
+				color: black;
+				font-size: 15px;
+			}
+			ul#horizontal-list  {
+				min-width: 70px;
+				list: none;
+				color: black;
+				align: center;
+				position: center;
+				font-size: 30px;
+			}
+			ul#horizontal-list li {
+				display: inline;
+				margin: auto;
+			}
+			
+			#home.active, #contract.active{
+				font-family: 'Quicksand', sans-serif;
+				font-size: 30px;
+				background-color : white;
+				padding: 5px;
+				-webkit-appearance: button;
+				-moz-appearance: button;
+				appearance: button;
+			}
+
+			a { 
+				color: inherit; 
+			}
+
+			iframe{
+				border: none;
+				margin: none;
+				line-height: 0;
+				display:inline-block;
+				display:block
+			}
+
+		</STYLE>
+	</head>
+	<body>
+		
+		
+
+		<div class="ex2" >
+			<H2> JGraphs </H2>
+			<p> Dibuje una grafica</p>
+			<textarea id="graphinput" name="graphinput" rows="1" cols="100">
+P5
+			</textarea>
+		</div>
+		
+
+		<canvas id="myCanvas" width="800" height="600" style="border:2px solid #000000;"></canvas>
+		<script language="javascript" type="text/javascript" src="JGraphs.js"></script>
+
+		<div class="ex2" >
+			<H2> SageMath Cell </H2>
+		</div>
+
+		<div class="sage">
+			<script type="text/x-sage">1+2</script>
+		</div>
+
+		<div class="ex2" >
+			<H2> Texto exportable </H2>
+			<textarea id="graphoutput" name="graphoutput" rows="1" cols="100">
+
+			</textarea>
+		</div>
+
+	</body>
+</html>

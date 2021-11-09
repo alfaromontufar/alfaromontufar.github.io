@@ -50,7 +50,7 @@
 			}
 			div.ex2 {
 				
-				margin: 30px;
+				margin: 0px 0px 20px 30px;
 				text-align: justify; 
 				font-family: 'Quicksand', sans-serif;
 				color: rgb(230, 230, 230);
@@ -98,6 +98,57 @@
 				display:block
 			}
 
+			/* Tooltip container */
+			.tooltip {
+				margin: 0px 0px 0px 30px;
+				font-family: 'Quicksand', sans-serif;
+				color: rgb(230, 230, 230);
+				font-size: 15px;
+				position: relative;
+				display: inline-block;
+				/*border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+			}
+
+			/* Tooltip text */
+			.tooltip .tooltiptext {
+			visibility: hidden;
+			width: 120px;
+			background-color: #555;
+			color: #fff;
+			text-align: center;
+			padding: 5px 0;
+			border-radius: 6px;
+
+			/* Position the tooltip text */
+			position: absolute;
+			z-index: 1;
+			bottom: 125%;
+			left: 50%;
+			margin-left: -60px;
+
+			/* Fade in tooltip */
+			opacity: 0;
+			transition: opacity 0.3s;
+			}
+
+			/* Tooltip arrow */
+			.tooltip .tooltiptext::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: #555 transparent transparent transparent;
+			}
+
+			/* Show the tooltip text when you mouse over the tooltip container */
+			.tooltip:hover .tooltiptext {
+			visibility: visible;
+			opacity: 1;
+			}
+
 		</STYLE>
 	</head>
 	<body>
@@ -106,11 +157,19 @@
 
 		<div class="ex2" >
 			<H2> JGraphs </H2>
-			<p> Draw a graph</p>
+		</div>
+		
+		<div class="tooltip">
+			<p> See directions by moving the mouse over here.</p>
+			<span class="tooltiptext">Directions:</span>
+		</div>
+			
+		<div class="ex2" >
 			<input id="graphinput" name="graphinput" size="100" class="search" onkeydown="textinput(this)">
 			</input>
 		</div>
 		
+
 		<canvas id="myCanvas" width="800" height="600" style="border:2px solid #000000;"></canvas>
 		<script language="javascript" type="text/javascript" src="JGraphs.js"></script>
 

@@ -112,7 +112,7 @@
 			/* Tooltip text */
 			.tooltip .tooltiptext {
 			visibility: hidden;
-			width: 120px;
+			width: 500px;
 			background-color: #555;
 			color: #fff;
 			text-align: center;
@@ -122,8 +122,8 @@
 			/* Position the tooltip text */
 			position: absolute;
 			z-index: 1;
-			bottom: 125%;
-			left: 50%;
+			bottom: -400%;
+			left: 20%;
 			margin-left: -60px;
 
 			/* Fade in tooltip */
@@ -133,14 +133,14 @@
 
 			/* Tooltip arrow */
 			.tooltip .tooltiptext::after {
-			content: "";
+			content: " ";
 			position: absolute;
-			top: 100%;
+			bottom: 100%;  /* At the top of the tooltip */
 			left: 50%;
 			margin-left: -5px;
 			border-width: 5px;
 			border-style: solid;
-			border-color: #555 transparent transparent transparent;
+			border-color: transparent transparent black transparent;
 			}
 
 			/* Show the tooltip text when you mouse over the tooltip container */
@@ -161,7 +161,18 @@
 		
 		<div class="tooltip">
 			<p> See directions by moving the mouse over here.</p>
-			<span class="tooltiptext">Directions:</span>
+			<span class="tooltiptext">
+				Directions:<br>
+				double click on canvas to add a new vertex<br>
+				vertices are draggable<br>
+				click on two vertices to add or delete an edge<br>
+				type "Kn" to draw a complete graph on n vertices<br>
+				type "Cn" to draw a cycle graph on n vertices<br>
+				type "Tn" to draw a trivial graph on n vertices<br>
+				type "Pn" to draw a path graph on n vertices<br>
+				type "toLatex" to export the graph to LaTeX via Tikz<br>
+				type "toSage" to export the graph to SageMath<br>
+			</span>
 		</div>
 			
 		<div class="ex2" >

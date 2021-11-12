@@ -11,6 +11,7 @@ var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 ctx.font = "10px Arial";
 ctx.lineWidth = 2;
+ctx.strokeStyle = "white";
 
 var vS = document.getElementById("vertexSize");
 var eW = document.getElementById("edgeWidth");
@@ -30,8 +31,7 @@ let timer
 document.addEventListener('click', event => {
   if (event.detail === 1) {
     timer = setTimeout(() => {
-      console.log('click')
-    }, 200)
+    }, 250)
   }
 })
 document.addEventListener('dblclick', event => {
@@ -50,6 +50,7 @@ eW.addEventListener('input', updateEdgeWidth, false);
 //make a collection of circles
 var circles = [];
 var edges = [];
+var removedEdges = [];
 
 function updateVertexSize() {
     vertexsize = vS.value;
@@ -79,7 +80,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", nVertices++);
 
                 circles.push(auxc);
 
@@ -95,7 +96,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", nVertices++);
 
                 circles.push(auxc);
 
@@ -115,7 +116,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", nVertices++);
 
                 circles.push(auxc);
 
@@ -132,7 +133,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", nVertices++);
 
                 circles.push(auxc);
                 
@@ -150,11 +151,15 @@ function textinput(e) {
             cadena = cadena + "		\\tikzstyle{every node}=[minimum width=0pt, inner sep=2pt, circle]\n";
 
             for ( var i = 0; i < circles.length; i++ ) {
-                cadena = cadena + "			\\draw (" + ((circles[i].x - cx)/100) + "," + ((cy - circles[i].y)/100) + ") node[draw] (" + i + ") { \\tiny " + i + "};\n";
+                if( circles[i].vivo){
+                    cadena = cadena + "			\\draw (" + ((circles[i].x - cx)/100) + "," + ((cy - circles[i].y)/100) + ") node[draw] (" + i + ") { \\tiny " + i + "};\n";
+                }
             }
 
             for ( var i = 0; i < edges.length; i++) {
-                cadena = cadena + "			\\draw  (" + (edges[i][0]) + ") edge (" + (edges[i][1]) + ");\n";
+                if ( circles[edges[i][0]].vivo && circles[edges[i][1]].vivo ) {
+                    cadena = cadena + "			\\draw  (" + (edges[i][0]) + ") edge (" + (edges[i][1]) + ");\n";
+                }
             }
             cadena = cadena + "		\\end{tikzpicture}\n";
             cadena = cadena + "	\\end{center}\n";
@@ -282,18 +287,24 @@ function graph2string() {
     }
 
     for ( var i = 0; i < edges.length; i++ ) {
-        if ( Number(adyacencias[edges[i][0]][adyacencias[edges[i][0]].length-1]) > 0 ){
-            adyacencias[edges[i][0]] = adyacencias[edges[i][0]] + ","
+        if ( circles[edges[i][1]].vivo ){
+            if ( Number(adyacencias[edges[i][0]][adyacencias[edges[i][0]].length-1]) > 0 ){
+                adyacencias[edges[i][0]] = adyacencias[edges[i][0]] + ","
+            }
+            adyacencias[edges[i][0]] = adyacencias[edges[i][0]] + edges[i][1].toString(); 
         }
-        adyacencias[edges[i][0]] = adyacencias[edges[i][0]] + edges[i][1].toString(); 
     }
 
     for (var i = 0; i < circles.length; i++) {
-        if ( adyacencias[i].length > 0 ) {
+        if ( circles[i].vivo ){
             if (graph[graph.length-1] == "]") {
                 graph = graph + ",";
             }
-            graph = graph + i.toString() + ":[" + adyacencias[i] + "]";
+            if ( adyacencias[i].length > 0 ) {
+                graph = graph + i.toString() + ":[" + adyacencias[i] + "]";
+            } else {
+                graph = graph + i.toString() + ":[]";
+            }
         }
     }
     graph = graph + "}";
@@ -304,9 +315,29 @@ function graph2string() {
 function addVertex(e){
     getMousePosition(e);
     if ( mousePosition.x >= 0 && mousePosition.x <= c.width && mousePosition.y >= 0 && mousePosition.y <= c.height) {
-        var auxc = new Circle(mousePosition.x, mousePosition.y, "red", "white", nVertices++);
-        circles.push(auxc);
-        draw();
+
+        removeVertex = -1;
+        for (var i = 0; i < circles.length; i++) {
+            if (intersects(circles[i])) {
+                removeVertex = i;
+                break;
+            }
+        }
+        if (removeVertex > -1) {
+            if ( circles[i].vivo ) {
+                circles[i].vivo = false;
+                draw();
+            } else {
+                circles[i].vivo = true;
+                draw()
+            }
+            
+        } else {
+            var auxc = new Circle(mousePosition.x, mousePosition.y, "red", nVertices++);
+            circles.push(auxc);
+            draw();
+        }
+        
     }
     
 }
@@ -324,15 +355,14 @@ function draw() {
 //draw edges
 function drawEdges() {
     for ( var i = edges.length - 1; i >= 0 ; i--) {
-        head = edges[i][0];
-        tail = edges[i][1];
-        
-        ctx.beginPath();
-        ctx.moveTo(circles[head].x, circles[head].y);
-        ctx.lineTo(circles[tail].x, circles[tail].y);
-        ctx.strokeStyle = "white";
-        ctx.stroke();
-        
+        if ( circles[edges[i][0]].vivo && circles[edges[i][1]].vivo ){
+            head = edges[i][0];
+            tail = edges[i][1];
+            ctx.beginPath();
+            ctx.moveTo(circles[head].x, circles[head].y);
+            ctx.lineTo(circles[tail].x, circles[tail].y);
+            ctx.stroke();
+        }
     }
 }
 
@@ -351,22 +381,22 @@ var focused = {
 }
 
 //circle Object
-function Circle(x, y, fill, stroke, indice) {
+function Circle(x, y, fill, indice) {
     this.startingAngle = 0;
     this.endAngle = 2 * Math.PI;
     this.x = x;
     this.y = y;
     this.indice = indice;
-
     this.fill = fill;
-    this.stroke = stroke;
+    this.vivo = true;
 
     this.draw = function () {
         ctx.beginPath();
         ctx.arc(this.x, this.y, vertexsize, this.startingAngle, this.endAngle);
-        ctx.fillStyle = this.fill;
-        ctx.fill();
-        ctx.strokeStyle = this.stroke;
+        if(this.vivo){
+            ctx.fillStyle = this.fill;
+            ctx.fill();
+        }
         ctx.stroke();
         ctx.fillStyle = "white";
         ctx.fillText(this.indice.toString(), this.x, this.y - 10 - vertexsize + 5);
@@ -416,7 +446,7 @@ function setDraggable(e) {
             }
 
             for (var i = 0; i < circles.length; i++) {
-                if (i != addingEdge.head && intersects(circles[i])) {
+                if (circles[i].vivo && i != addingEdge.head && intersects(circles[i])) {
                     if (addingEdge.intento == -1){
                         addingEdge.head = i;
                         circles[addingEdge.head].fill = "green";

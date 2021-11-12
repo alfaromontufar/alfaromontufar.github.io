@@ -26,6 +26,18 @@ var addingEdge = {
 };
 
 //add listeners
+let timer
+document.addEventListener('click', event => {
+  if (event.detail === 1) {
+    timer = setTimeout(() => {
+      console.log('click')
+    }, 200)
+  }
+})
+document.addEventListener('dblclick', event => {
+  clearTimeout(timer)
+  console.log('dblclick')
+})
 document.addEventListener('mousemove', move, false);
 document.addEventListener('mousedown', setDraggable, false);
 document.addEventListener('mouseup', setDraggable, false);
@@ -404,9 +416,11 @@ function setDraggable(e) {
             }
 
             for (var i = 0; i < circles.length; i++) {
-                if (intersects(circles[i])) {
+                if (i != addingEdge.head && intersects(circles[i])) {
                     if (addingEdge.intento == -1){
                         addingEdge.head = i;
+                        circles[addingEdge.head].fill = "green";
+                        draw()
                     } else {
                         addingEdge.tail = i;
                     }
@@ -415,6 +429,8 @@ function setDraggable(e) {
             }
 
             if (addingEdge.intento == 1 && addingEdge.tail == -1) {
+                circles[addingEdge.head].fill = "red";
+                draw();
                 addingEdge.intento = -1;
             } else if (addingEdge.tail > -1) {
 
@@ -440,6 +456,7 @@ function setDraggable(e) {
                     edges.push([menor,mayor]);
                 }
 
+                circles[addingEdge.head].fill = "red";
                 draw();
                 
             } else if (addingEdge.head > -1){

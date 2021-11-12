@@ -112,19 +112,19 @@
 			/* Tooltip text */
 			.tooltip .tooltiptext {
 			visibility: hidden;
-			width: 500px;
+			width: 400px;
 			background-color: #555;
 			color: #fff;
-			text-align: center;
-			padding: 5px 0;
+			text-align: left;
+			padding: 10px 10px 10px 20px;
 			border-radius: 6px;
 
 			/* Position the tooltip text */
 			position: absolute;
 			z-index: 1;
-			bottom: -400%;
-			left: 20%;
-			margin-left: -60px;
+			bottom: -350%;
+			left: 0%;
+			margin-left: 10px;
 
 			/* Fade in tooltip */
 			opacity: 0;
@@ -140,11 +140,51 @@
 			margin-left: -5px;
 			border-width: 5px;
 			border-style: solid;
-			border-color: transparent transparent black transparent;
+			border-color: transparent transparent #555 transparent;
 			}
 
 			/* Show the tooltip text when you mouse over the tooltip container */
 			.tooltip:hover .tooltiptext {
+			visibility: visible;
+			opacity: 1;
+			}
+
+			/* Tooltip text */
+			.tooltip .tooltiptext1 {
+			visibility: hidden;
+			width: 200px;
+			background-color: #555;
+			color: #fff;
+			text-align: center;
+			padding: 10px 10px 10px 10px;
+			border-radius: 6px;
+
+			/* Position the tooltip text */
+			position: absolute;
+			z-index: 1;
+			bottom: -180%;
+			left: 20%;
+			margin-left: -60px;
+
+			/* Fade in tooltip */
+			opacity: 0;
+			transition: opacity 0.3s;
+			}
+
+			/* Tooltip arrow */
+			.tooltip .tooltiptext1::after {
+			content: " ";
+			position: absolute;
+			bottom: 100%;  /* At the top of the tooltip */
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: transparent transparent #555 transparent;
+			}
+
+			/* Show the tooltip text when you mouse over the tooltip container */
+			.tooltip:hover .tooltiptext1 {
 			visibility: visible;
 			opacity: 1;
 			}
@@ -160,9 +200,8 @@
 		</div>
 		
 		<div class="tooltip">
-			<p> See directions by moving the mouse over here.</p>
+			<p> Instructions</p>
 			<span class="tooltiptext">
-				Directions:<br>
 				double click on canvas to add a new vertex<br>
 				vertices are draggable<br>
 				click on two vertices to add or delete an edge<br>
@@ -173,6 +212,25 @@
 				type "toLatex" to export the graph to LaTeX via Tikz<br>
 				type "toSage" to export the graph to SageMath<br>
 			</span>
+		</div>
+
+		<div class="tooltip">
+			<p> Settings</p>
+			<span class="tooltiptext1">
+				vertex size:
+				<div class="slidecontainer">
+					<input type="range" min="5" max="20" value="0" class="slider" id="vertexSize">
+				</div>
+				edge width:
+				<div class="slidecontainer">
+					<input type="range" min="2" max="8" value="0" class="slider" id="edgeWidth">
+				</div>
+				text size:
+				<div class="slidecontainer">
+					<input type="range" min="10" max="40" value="0" class="slider" id="textSize">
+				</div>
+			</span>
+			
 		</div>
 			
 		<div class="ex2" >

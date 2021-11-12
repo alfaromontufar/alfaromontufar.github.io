@@ -10,7 +10,13 @@ var c = document.getElementById("myCanvas");
 //reference to 2d context
 var ctx = c.getContext("2d");
 ctx.font = "10px Arial";
+ctx.lineWidth = 2;
 
+var vS = document.getElementById("vertexSize");
+var eW = document.getElementById("edgeWidth");
+var tS = document.getElementById("textSize");
+
+var vertexsize = 5;
 var nVertices = 0;
 
 var addingEdge = {
@@ -24,12 +30,29 @@ document.addEventListener('mousemove', move, false);
 document.addEventListener('mousedown', setDraggable, false);
 document.addEventListener('mouseup', setDraggable, false);
 document.addEventListener('dblclick', addVertex, false);
+vS.addEventListener('input', updateVertexSize, false);
+tS.addEventListener('input', updateTextSize, false);
+eW.addEventListener('input', updateEdgeWidth, false);
+
 
 //make a collection of circles
 var circles = [];
 var edges = [];
 
+function updateVertexSize() {
+    vertexsize = vS.value;
+    draw()
+}
 
+function updateEdgeWidth() {
+    ctx.lineWidth = eW.value;
+    draw()
+}
+
+function updateTextSize() {
+    ctx.font = tS.value.toString() + "px Arial";
+    draw()
+}
 
 //input as text
 function textinput(e) {
@@ -44,7 +67,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, 5, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
 
                 circles.push(auxc);
 
@@ -60,7 +83,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, 5, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
 
                 circles.push(auxc);
 
@@ -80,7 +103,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, 5, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
 
                 circles.push(auxc);
 
@@ -97,7 +120,7 @@ function textinput(e) {
                 var cx = c.width/2 - ( 200 * Math.cos( ( 2 * Math.PI * i ) / n ) );
                 var cy = c.height/2 + ( 200 * Math.sin( ( 2 * Math.PI * i ) / n ) );
                 
-                var auxc = new Circle(cx, cy, 5, "red", "white", nVertices++);
+                var auxc = new Circle(cx, cy, "red", "white", nVertices++);
 
                 circles.push(auxc);
                 
@@ -269,7 +292,7 @@ function graph2string() {
 function addVertex(e){
     getMousePosition(e);
     if ( mousePosition.x >= 0 && mousePosition.x <= c.width && mousePosition.y >= 0 && mousePosition.y <= c.height) {
-        var auxc = new Circle(mousePosition.x, mousePosition.y, 5, "red", "white", nVertices++);
+        var auxc = new Circle(mousePosition.x, mousePosition.y, "red", "white", nVertices++);
         circles.push(auxc);
         draw();
     }
@@ -296,7 +319,6 @@ function drawEdges() {
         ctx.moveTo(circles[head].x, circles[head].y);
         ctx.lineTo(circles[tail].x, circles[tail].y);
         ctx.strokeStyle = "white";
-        ctx.lineWidth = 2;
         ctx.stroke();
         
     }
@@ -317,12 +339,11 @@ var focused = {
 }
 
 //circle Object
-function Circle(x, y, r, fill, stroke, indice) {
+function Circle(x, y, fill, stroke, indice) {
     this.startingAngle = 0;
     this.endAngle = 2 * Math.PI;
     this.x = x;
     this.y = y;
-    this.r = r;
     this.indice = indice;
 
     this.fill = fill;
@@ -330,14 +351,13 @@ function Circle(x, y, r, fill, stroke, indice) {
 
     this.draw = function () {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, this.startingAngle, this.endAngle);
+        ctx.arc(this.x, this.y, vertexsize, this.startingAngle, this.endAngle);
         ctx.fillStyle = this.fill;
-        ctx.lineWidth = 2;
         ctx.fill();
         ctx.strokeStyle = this.stroke;
         ctx.stroke();
         ctx.fillStyle = "white";
-        ctx.fillText(this.indice.toString(), this.x, this.y - 10);
+        ctx.fillText(this.indice.toString(), this.x, this.y - 10 - vertexsize + 5);
     }
 }
 
@@ -450,7 +470,7 @@ function getMousePosition(e) {
 //detects whether the mouse cursor is between x and y relative to the radius specified
 function intersects(circle) {
     
-    return (Math.abs(mousePosition.x - circle.x) <= circle.r) &&  (Math.abs(mousePosition.y - circle.y) <= circle.r)
+    return (Math.abs(mousePosition.x - circle.x) <= vertexsize) &&  (Math.abs(mousePosition.y - circle.y) <= vertexsize)
 }
 
 draw();

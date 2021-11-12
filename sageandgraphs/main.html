@@ -122,7 +122,7 @@
 			/* Position the tooltip text */
 			position: absolute;
 			z-index: 1;
-			bottom: -390%;
+			bottom: -480%;
 			left: 0%;
 			margin-left: 10px;
 
@@ -136,7 +136,7 @@
 			content: " ";
 			position: absolute;
 			bottom: 100%;  /* At the top of the tooltip */
-			left: 50%;
+			left: 10%;
 			margin-left: -5px;
 			border-width: 5px;
 			border-style: solid;
@@ -176,7 +176,7 @@
 			content: " ";
 			position: absolute;
 			bottom: 100%;  /* At the top of the tooltip */
-			left: 50%;
+			left: 35%;
 			margin-left: -5px;
 			border-width: 5px;
 			border-style: solid;
@@ -203,6 +203,8 @@
 			<p> Instructions</p>
 			<span class="tooltiptext">
 				double click on canvas to add a new vertex<br>
+				double click on a vertex to delete or add an existing vertex<br>
+				vertices with no color are considered deleted<br>
 				vertices are draggable<br>
 				click on two vertices to add or delete an edge<br>
 				type "Kn" to draw a complete graph on n vertices<br>

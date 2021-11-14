@@ -288,7 +288,7 @@ function graph2string() {
 
     for ( var i = 0; i < edges.length; i++ ) {
         if ( circles[edges[i][1]].vivo ){
-            if ( Number(adyacencias[edges[i][0]][adyacencias[edges[i][0]].length-1]) > 0 ){
+            if ( adyacencias[edges[i][0]].length > 0 ){
                 adyacencias[edges[i][0]] = adyacencias[edges[i][0]] + ","
             }
             adyacencias[edges[i][0]] = adyacencias[edges[i][0]] + edges[i][1].toString(); 

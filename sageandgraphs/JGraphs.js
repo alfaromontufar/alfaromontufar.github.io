@@ -168,6 +168,8 @@ function textinput(e) {
             document.getElementById("graphoutput").textContent=cadena;
         } else if (text == 'toSage') {
             document.getElementById("graphoutput").textContent="g=Graph(" + graph2string() +")";
+        } else if (text == 'toM2') {
+            document.getElementById("graphoutput").textContent="loadPackage \"Graphs\"\nG = graph(" + graph2M2string() +")";
         } else if (text == 'computeFM') {
             var cadena = "# Forbidden graphs form MZ <= 3\n";
             cadena = cadena + "min_forbid5=[Graph('DBg', name = 'P5')]\n";
@@ -308,6 +310,42 @@ function graph2string() {
         }
     }
     graph = graph + "}";
+    return graph
+}
+
+function graph2M2string() {
+    var graph = "{";
+    
+    var singletons = Array.from({length: circles.length}, (_, i) => 1);
+
+    for (var i = 0; i < edges.length; i++) {
+        if ( circles[edges[i][0]].vivo && circles[edges[i][1]].vivo ){
+            if (graph[graph.length-1] == "}") {
+                graph = graph + ",";
+            }
+            graph = graph + "{" + edges[i][0].toString() + "," + edges[i][1] + "}";
+            singletons[edges[i][0]] = 0;
+            singletons[edges[i][1]] = 0;
+        }
+    }
+
+    graph = graph + "}";
+
+    for (var i = 0; i < circles.length; i++) {
+        if ( circles[i].vivo == true && singletons[i] == 1 ) {
+            if (graph[graph.length-1] == "}") {
+                graph = graph + ", Singletons => {";
+            } else if ( Number(graph[graph.length-1]) > -1 ) {
+                console.log(graph[graph.length-1]);
+                graph = graph + ",";
+            }
+            graph = graph + i.toString();
+        }
+    }
+    if ( graph[graph.length-1] != "}" ) {
+        graph = graph + "}";
+    }
+    
     return graph
 }
 

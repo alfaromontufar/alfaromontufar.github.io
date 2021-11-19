@@ -168,6 +168,8 @@ function textinput(e) {
             document.getElementById("graphoutput").textContent=cadena;
         } else if (text == 'toSage') {
             document.getElementById("graphoutput").textContent="g=Graph(" + graph2string() +")";
+        } else if (text == 'toR') {
+            document.getElementById("graphoutput").textContent="library(igraph)\ng <- graph.formula(" + graph2Rstring() +")";
         } else if (text == 'toM2') {
             document.getElementById("graphoutput").textContent="loadPackage \"Graphs\"\nG = graph(" + graph2M2string() +")";
         } else if (text == 'computeFM') {
@@ -310,6 +312,21 @@ function graph2string() {
         }
     }
     graph = graph + "}";
+    return graph
+}
+
+function graph2Rstring() {
+    var graph = "";
+
+    for ( var i = 0; i < edges.length; i++ ) {
+        if ( circles[edges[i][0]].vivo && circles[edges[i][1]].vivo ){
+            if ( graph.length > 0 ) {
+                graph = graph + ","
+            }
+            graph = graph + edges[i][0] + "-" + edges[i][1];
+        }
+    }
+    
     return graph
 }
 

@@ -90,10 +90,7 @@
 			}
 
 			div.gallery {
-			margin: 5px;
 			border: 1px solid #ccc;
-			float: left;
-			width: 180px;
 			}
 
 			div.gallery:hover {
@@ -109,6 +106,36 @@
 			padding: 15px;
 			text-align: center;
 			}
+
+			* {
+			box-sizing: border-box;
+			}
+
+			.responsive {
+			padding: 0 6px;
+			float: left;
+			width: 24.99999%;
+			}
+
+			@media only screen and (max-width: 700px) {
+			.responsive {
+				width: 49.99999%;
+				margin: 6px 0;
+			}
+			}
+
+			@media only screen and (max-width: 500px) {
+			.responsive {
+				width: 100%;
+			}
+			}
+
+			.clearfix:after {
+			content: "";
+			display: table;
+			clear: both;
+			}
+
 		</STYLE>
 	</head>
 
@@ -144,104 +171,142 @@
 			</ul>
 		</div>
 		
-		<div class="gallery">
-			<a target="_blank" href="gallery\Einstein.jpeg">
-			  <img src="gallery\Einstein.jpeg" alt="Berlin2019" width="600" height="400">
-			</a>
-			<div class="desc">Einstein Workshop on Polytopes and Algebraic Geometry 2019 (Berlin, Germany)</div>
-		  </div> 
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\RailheExamination.png">
+				<img src="gallery\RailheExamination.png" alt="Ralihe Ph.D. exam 2021" width="600" height="400">
+				</a>
+				<div class="desc">Ralihe Ph.D. defense 2021 </div>
+			</div>
+		</div>
+
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Einstein.jpeg">
+				<img src="gallery\Einstein.jpeg" alt="Berlin2019" width="600" height="400">
+				</a>
+				<div class="desc">Einstein Workshop on Polytopes and Algebraic Geometry 2019 (Berlin, Germany)</div>
+			</div>
+		</div>
 		
-		<div class="gallery">
-			<a target="_blank" href="https://www.birs.ca/cmo-workshops/2019/19w5071/groupphoto.jpg">
-			  <img src="https://www.birs.ca/cmo-workshops/2019/19w5071/groupphoto.jpg" alt="Sandpiles2015" width="600" height="400">
-			</a>
-			<div class="desc">Scaling Limits of Dynamical Processes on Random Graphs 2019 (Casa Matemática Oaxaca)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="https://www.birs.ca/cmo-workshops/2019/19w5071/groupphoto.jpg">
+				<img src="https://www.birs.ca/cmo-workshops/2019/19w5071/groupphoto.jpg" alt="Sandpiles2015" width="600" height="400">
+				</a>
+				<div class="desc">Scaling Limits of Dynamical Processes on Random Graphs 2019 (Casa Matemática Oaxaca)</div>
+			</div>
+		</div>
 
-		 <div class="gallery">
-			<a target="_blank" href="gallery\GRWC2018.JPG">
-			  <img src="gallery\GRWC2018.JPG" alt="GRWC 2018" width="600" height="400">
-			</a>
-			<div class="desc">GRWC 2018 (Ames, Iowa)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\GRWC2018.JPG">
+				<img src="gallery\GRWC2018.JPG" alt="GRWC 2018" width="600" height="400">
+				</a>
+				<div class="desc">GRWC 2018 (Ames, Iowa)</div>
+			</div>
+		</div>
 		  
-		  <div class="gallery">
-			<a target="_blank" href="https://lh3.googleusercontent.com/pw/AM-JKLXp7IT7ewm9yxWduznBi7CUz4WKbJIoazsfVlEvnVO-n3W-y78KO9S7_saO3qMWlfqd4-y0khS5iPhaqVrjW5IW5EriL_ax6LswTjti_IArwAVkRR_LXbw48S1MfAhVCvaDTH2jixP1Q2f2CplyCWsV=w3264-h1836-no?authuser=0">
-			  <img src="https://lh3.googleusercontent.com/pw/AM-JKLXp7IT7ewm9yxWduznBi7CUz4WKbJIoazsfVlEvnVO-n3W-y78KO9S7_saO3qMWlfqd4-y0khS5iPhaqVrjW5IW5EriL_ax6LswTjti_IArwAVkRR_LXbw48S1MfAhVCvaDTH2jixP1Q2f2CplyCWsV=w3264-h1836-no?authuser=0" alt="MRC 2017" width="600" height="400">
-			</a>
-			<div class="desc">Latin American Workshop on Cliques in Graphs 2018 (Rio de Janeiro, Brazil)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="https://lh3.googleusercontent.com/pw/AM-JKLXp7IT7ewm9yxWduznBi7CUz4WKbJIoazsfVlEvnVO-n3W-y78KO9S7_saO3qMWlfqd4-y0khS5iPhaqVrjW5IW5EriL_ax6LswTjti_IArwAVkRR_LXbw48S1MfAhVCvaDTH2jixP1Q2f2CplyCWsV=w3264-h1836-no?authuser=0">
+				<img src="https://lh3.googleusercontent.com/pw/AM-JKLXp7IT7ewm9yxWduznBi7CUz4WKbJIoazsfVlEvnVO-n3W-y78KO9S7_saO3qMWlfqd4-y0khS5iPhaqVrjW5IW5EriL_ax6LswTjti_IArwAVkRR_LXbw48S1MfAhVCvaDTH2jixP1Q2f2CplyCWsV=w3264-h1836-no?authuser=0" alt="MRC 2017" width="600" height="400">
+				</a>
+				<div class="desc">Latin American Workshop on Cliques in Graphs 2018 (Rio de Janeiro, Brazil)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\MRC2017.jpg">
-			  <img src="gallery\MRC2017.jpg" alt="MRC 2017" width="600" height="400">
-			</a>
-			<div class="desc">MRC 2017 (Beyond Planarity: Crossing Numbers in Snowbird, Utah)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\MRC2017.jpg">
+				<img src="gallery\MRC2017.jpg" alt="MRC 2017" width="600" height="400">
+				</a>
+				<div class="desc">MRC 2017 (Beyond Planarity: Crossing Numbers in Snowbird, Utah)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\Snowbird.JPG">
-			  <img src="gallery\Snowbird.JPG" alt="MRC 2017" width="600" height="400">
-			</a>
-			<div class="desc">MRC 2017 (Snowbird, Utah. From left: Mario Lomelí, Carlos and Silvia Fernández-Merchant)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Snowbird.JPG">
+				<img src="gallery\Snowbird.JPG" alt="MRC 2017" width="600" height="400">
+				</a>
+				<div class="desc">MRC 2017 (Snowbird, Utah. From left: Mario Lomelí, Carlos and Silvia Fernández-Merchant)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\Juriquilla.jpg">
-			  <img src="gallery\Juriquilla.jpg" alt="Juriquilla" width="600" height="400">
-			</a>
-			<div class="desc">Third Discrete Mathematics Workshop 2016 (Juriquilla, Queretaro)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Juriquilla.jpg">
+				<img src="gallery\Juriquilla.jpg" alt="Juriquilla" width="600" height="400">
+				</a>
+				<div class="desc">Third Discrete Mathematics Workshop 2016 (Juriquilla, Queretaro)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="https://lh3.googleusercontent.com/pw/AM-JKLVwOinn4p7V57mTioslrek6YoClmVk_GkSCBZx89EGJPNc7g0s4w5ROSyQzfYZba7LOXPzYKBD6ku6iTYfR0FNWpb_WWViWLuRjySjsDhxeyG0yb0q4jRWjhU_0ZjBUdI-lgfO7UIt1F7fYyDy00mZv=w2686-h2014-no?authuser=0">
-			  <img src="https://lh3.googleusercontent.com/pw/AM-JKLVwOinn4p7V57mTioslrek6YoClmVk_GkSCBZx89EGJPNc7g0s4w5ROSyQzfYZba7LOXPzYKBD6ku6iTYfR0FNWpb_WWViWLuRjySjsDhxeyG0yb0q4jRWjhU_0ZjBUdI-lgfO7UIt1F7fYyDy00mZv=w2686-h2014-no?authuser=0" alt="Juriquilla" width="600" height="400">
-			</a>
-			<div class="desc">Latin American Workshop on Cliques in Graphs 2016 (La Plata, Argentina)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="https://lh3.googleusercontent.com/pw/AM-JKLVwOinn4p7V57mTioslrek6YoClmVk_GkSCBZx89EGJPNc7g0s4w5ROSyQzfYZba7LOXPzYKBD6ku6iTYfR0FNWpb_WWViWLuRjySjsDhxeyG0yb0q4jRWjhU_0ZjBUdI-lgfO7UIt1F7fYyDy00mZv=w2686-h2014-no?authuser=0">
+				<img src="https://lh3.googleusercontent.com/pw/AM-JKLVwOinn4p7V57mTioslrek6YoClmVk_GkSCBZx89EGJPNc7g0s4w5ROSyQzfYZba7LOXPzYKBD6ku6iTYfR0FNWpb_WWViWLuRjySjsDhxeyG0yb0q4jRWjhU_0ZjBUdI-lgfO7UIt1F7fYyDy00mZv=w2686-h2014-no?authuser=0" alt="Juriquilla" width="600" height="400">
+				</a>
+				<div class="desc">Latin American Workshop on Cliques in Graphs 2016 (La Plata, Argentina)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="https://www.birs.ca/cmo-workshops/2015/15w5119/groupphoto.jpg">
-			  <img src="https://www.birs.ca/cmo-workshops/2015/15w5119/groupphoto.jpg" alt="Sandpiles2015" width="600" height="400">
-			</a>
-			<div class="desc">Sandpile groups 2015 (Casa Matemática Oaxaca)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="https://www.birs.ca/cmo-workshops/2015/15w5119/groupphoto.jpg">
+				<img src="https://www.birs.ca/cmo-workshops/2015/15w5119/groupphoto.jpg" alt="Sandpiles2015" width="600" height="400">
+				</a>
+				<div class="desc">Sandpile groups 2015 (Casa Matemática Oaxaca)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\Crossing2013.JPG">
-			  <img src="gallery\Crossing2013.JPG" alt="CrossingNumbers2013" width="600" height="400">
-			</a>
-			<div class="desc">Crossing numbers 2013 (Guanajuato)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Crossing2013.JPG">
+				<img src="gallery\Crossing2013.JPG" alt="CrossingNumbers2013" width="600" height="400">
+				</a>
+				<div class="desc">Crossing numbers 2013 (Guanajuato)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\Google.jpg">
-			  <img src="gallery\Google.jpg" alt="Google" width="600" height="400">
-			</a>
-			<div class="desc">At Google 2012 (Mountain View, California. From left: Marcos Vargas, Sergio Perez, Carlos)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Google.jpg">
+				<img src="gallery\Google.jpg" alt="Google" width="600" height="400">
+				</a>
+				<div class="desc">At Google 2012 (Mountain View, California. From left: Marcos Vargas, Sergio Perez, Carlos)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\Infinite loop.jpg">
-			  <img src="gallery\Infinite loop.jpg" alt="APPLE" width="600" height="400">
-			</a>
-			<div class="desc">At infinite loop 2012 (Cupertino, California)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Infinite loop.jpg">
+				<img src="gallery\Infinite loop.jpg" alt="APPLE" width="600" height="400">
+				</a>
+				<div class="desc">At infinite loop 2012 (Cupertino, California)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\Monterey.jpg">
-			  <img src="gallery\Monterey.jpg" alt="Monterey" width="600" height="400">
-			</a>
-			<div class="desc">At Monterey, California 2012 (From left: Carlos Valencia and Carlos Alfaro)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\Monterey.jpg">
+				<img src="gallery\Monterey.jpg" alt="Monterey" width="600" height="400">
+				</a>
+				<div class="desc">At Monterey, California 2012 (From left: Carlos Valencia and Carlos Alfaro)</div>
+			</div>
+		</div>
 
-		  <div class="gallery">
-			<a target="_blank" href="gallery\HP.JPG">
-			  <img src="gallery\HP.JPG" alt="HP" width="600" height="400">
-			</a>
-			<div class="desc">HP Labs 2011 (Palo Alto, California. From left: Ricardo, Carlos, Bob Tarjan, Lile Ramshaw, Marcos Vargas and Pano Santos)</div>
-		  </div>
+		<div class="responsive">
+			<div class="gallery">
+				<a target="_blank" href="gallery\HP.JPG">
+				<img src="gallery\HP.JPG" alt="HP" width="600" height="400">
+				</a>
+				<div class="desc">HP Labs 2011 (Palo Alto, California. From left: Ricardo, Carlos, Bob Tarjan, Lile Ramshaw, Marcos Vargas and Pano Santos)</div>
+			</div>
+		</div>
 		  
+		<div class="clearfix"></div>
 
 		
 	</body>
